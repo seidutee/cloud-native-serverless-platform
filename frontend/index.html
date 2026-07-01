@@ -1,33 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Awesome App</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="container">
-        <h1>Awesome App</h1>
+    <div class="overlay">
 
-        <input
-            type="text"
-            id="studentId"
-            placeholder="Student ID">
+        <div class="container">
 
-        <input
-            type="text"
-            id="studentName"
-            placeholder="Student Name">
+            <h1>Awesome App</h1>
 
-        <button onclick="saveStudent()">
-            Save Student
-        </button>
+            <input
+                type="text"
+                id="studentId"
+                placeholder="Student ID">
 
-        <div id="message"></div>
+            <input
+                type="text"
+                id="studentName"
+                placeholder="Student Name">
+
+            <button onclick="saveStudent()">
+                Save Student
+            </button>
+
+            <div id="message"></div>
+
+        </div>
+
     </div>
 
+    <!-- Load configuration first -->
+    <script src="config.js"></script>
+
+    <!-- Then load the application -->
     <script src="script.js"></script>
 
 </body>
+
 </html>

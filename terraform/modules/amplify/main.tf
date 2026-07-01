@@ -12,36 +12,51 @@ resource "aws_amplify_app" "awesome_app" {
 
   build_spec = <<EOF
 version: 1
+
 frontend:
+
   phases:
+
     preBuild:
+
       commands:
-        - echo "Injecting API Gateway URL"
-        - sed -i "s|__API_URL__|$API_URL|g" frontend/config.js
+        - echo "Generating frontend configuration..."
+
+        - |
+          cat > frontend/config.js <<EOT
+          window.APP_CONFIG = {
+            API_URL: "$API_URL"
+          };
+          EOT
 
     build:
+
       commands:
-        - echo "Static site build complete"
+        - echo "Static frontend ready"
 
   artifacts:
+
     baseDirectory: frontend
+
     files:
       - '**/*'
 
   cache:
+
     paths: []
 EOF
 
   tags = var.tags
 }
 
-resource "aws_amplify_branch" "main" {
+resource "aws_amplify_branch" "production" {
 
   app_id      = aws_amplify_app.awesome_app.id
   branch_name = "main"
 
   framework = "Web"
-  stage     = "PRODUCTION"
+
+  stage = "PRODUCTION"
 
   enable_auto_build = true
 }

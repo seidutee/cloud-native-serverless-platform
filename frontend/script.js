@@ -1,26 +1,65 @@
-const API_URL = window.APP_CONFIG.API_URL;
+const API_URL = window.APP_CONFIG?.API_URL;
+
+if (!API_URL) {
+
+    console.error("API_URL was not loaded from config.js");
+
+    document.getElementById("message").innerHTML =
+        "Application configuration could not be loaded.";
+
+}
 
 async function saveStudent() {
 
-    const id = document.getElementById("studentId").value;
-    const name = document.getElementById("studentName").value;
+    if (!API_URL) {
+        return;
+    }
 
-    const response = await fetch(
-        `${API_URL}/students`,
-        {
+    const id = document.getElementById("studentId").value.trim();
+    const name = document.getElementById("studentName").value.trim();
+
+    if (!id || !name) {
+
+        document.getElementById("message").innerHTML =
+            "Please enter both Student ID and Student Name.";
+
+        return;
+    }
+
+    try {
+
+        const response = await fetch(`${API_URL}/students`, {
+
             method: "POST",
+
             headers: {
                 "Content-Type": "application/json"
             },
+
             body: JSON.stringify({
                 id,
                 name
             })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || "Request failed");
         }
-    );
 
-    const data = await response.json();
+        document.getElementById("message").innerHTML =
+            "Student saved successfully.";
 
-    document.getElementById("message").innerHTML =
-        JSON.stringify(data);
+        console.log(data);
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+        document.getElementById("message").innerHTML =
+            error.message;
+    }
+
 }
