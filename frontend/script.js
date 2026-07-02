@@ -1,65 +1,97 @@
-const API_URL = window.APP_CONFIG?.API_URL;
+const GET_API = window.APP_CONFIG.GET_API;
+const POST_API = window.APP_CONFIG.POST_API;
 
-if (!API_URL) {
-
-    console.error("API_URL was not loaded from config.js");
-
-    document.getElementById("message").innerHTML =
-        "Application configuration could not be loaded.";
-
-}
-
-async function saveStudent() {
-
-    if (!API_URL) {
-        return;
-    }
-
-    const id = document.getElementById("studentId").value.trim();
-    const name = document.getElementById("studentName").value.trim();
-
-    if (!id || !name) {
-
-        document.getElementById("message").innerHTML =
-            "Please enter both Student ID and Student Name.";
-
-        return;
-    }
+async function loadStudents() {
 
     try {
 
-        const response = await fetch(`${API_URL}/students`, {
+        const response = await fetch(GET_API);
 
-            method: "POST",
+        const students = await response.json();
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+        const table = document.getElementById("studentTableBody");
 
-            body: JSON.stringify({
-                id,
-                name
-            })
+        table.innerHTML = "";
+
+        students.forEach(student => {
+
+            table.innerHTML += `
+                <tr>
+                    <td>${student.id}</td>
+                    <td>${student.name}</td>
+                </tr>
+            `;
+
         });
 
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || "Request failed");
-        }
-
-        document.getElementById("message").innerHTML =
-            "Student saved successfully.";
-
-        console.log(data);
-
     }
-    catch (error) {
+
+    catch(error){
 
         console.error(error);
 
-        document.getElementById("message").innerHTML =
-            error.message;
     }
 
 }
+
+async function saveStudent(){
+
+    const id=document.getElementById("studentId").value.trim();
+
+    const name=document.getElementById("studentName").value.trim();
+
+    if(!id || !name){
+
+        alert("Please complete all fields.");
+
+        return;
+
+    }
+
+    try{
+
+        const response=await fetch(POST_API,{
+
+            method:"POST",
+
+            headers:{
+
+                "Content-Type":"application/json"
+
+            },
+
+            body:JSON.stringify({
+
+                id:id,
+
+                name:name
+
+            })
+
+        });
+
+        if(!response.ok){
+
+            throw new Error("Unable to save student.");
+
+        }
+
+        document.getElementById("studentId").value="";
+
+        document.getElementById("studentName").value="";
+
+        await loadStudents();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert(error.message);
+
+    }
+
+}
+
+window.onload=loadStudents;

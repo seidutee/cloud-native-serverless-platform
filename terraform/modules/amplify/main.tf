@@ -7,8 +7,9 @@ resource "aws_amplify_app" "awesome_app" {
   enable_branch_auto_build = true
 
   environment_variables = {
-    API_URL = var.api_gateway_url
-  }
+  GET_API  = "${var.api_gateway_url}/students"
+  POST_API = "${var.api_gateway_url}/students"
+}
 
   build_spec = <<EOF
 version: 1

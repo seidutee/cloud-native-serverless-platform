@@ -2,46 +2,75 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awesome App</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Awesome Student Manager</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-    <div class="overlay">
+<div class="overlay">
 
-        <div class="container">
+<div class="container">
 
-            <h1>Awesome App</h1>
+<h1>Awesome Student Manager</h1>
 
-            <input
-                type="text"
-                id="studentId"
-                placeholder="Student ID">
+<div class="form">
 
-            <input
-                type="text"
-                id="studentName"
-                placeholder="Student Name">
+<input
+type="text"
+id="studentId"
+placeholder="Student ID">
 
-            <button onclick="saveStudent()">
-                Save Student
-            </button>
+<input
+type="text"
+id="studentName"
+placeholder="Student Name">
 
-            <div id="message"></div>
+<button onclick="saveStudent()">
 
-        </div>
+Save Student
 
-    </div>
+</button>
 
-    <!-- Load configuration first -->
-    <script src="config.js"></script>
+</div>
 
-    <!-- Then load the application -->
-    <script src="script.js"></script>
+<h2>Students</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Student ID</th>
+
+<th>Student Name</th>
+
+</tr>
+
+</thead>
+
+<tbody id="studentTableBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script src="config.js"></script>
+
+<script src="script.js"></script>
 
 </body>
 

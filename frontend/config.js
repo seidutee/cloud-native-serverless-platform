@@ -1,3 +1,4 @@
 window.APP_CONFIG = {
-    API_URL: "__API_URL__"
+    GET_API: "__GET_API__",
+    POST_API: "__POST_API__"
 };

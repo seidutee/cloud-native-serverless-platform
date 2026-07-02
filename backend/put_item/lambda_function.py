@@ -8,20 +8,71 @@ table = dynamodb.Table(
     os.environ["TABLE_NAME"]
 )
 
+
 def lambda_handler(event, context):
 
-    body = json.loads(event["body"])
+    try:
 
-    item = {
-        "id": body["id"],
-        "name": body["name"]
-    }
+        body = json.loads(event["body"])
 
-    table.put_item(Item=item)
+        student = {
 
-    return {
-        "statusCode": 200,
-        "body": json.dumps({
-            "message": "Item created"
-        })
-    }
+            "id": body["id"],
+
+            "name": body["name"]
+
+        }
+
+        table.put_item(
+
+            Item=student
+
+        )
+
+        return {
+
+            "statusCode": 200,
+
+            "headers": {
+
+                "Content-Type": "application/json",
+
+                "Access-Control-Allow-Origin": "*",
+
+                "Access-Control-Allow-Headers": "*",
+
+                "Access-Control-Allow-Methods": "*"
+
+            },
+
+            "body": json.dumps({
+
+                "message": "Student saved successfully.",
+
+                "student": student
+
+            })
+
+        }
+
+    except Exception as e:
+
+        return {
+
+            "statusCode": 500,
+
+            "headers": {
+
+                "Access-Control-Allow-Origin": "*"
+
+            },
+
+            "body": json.dumps({
+
+                "message": "Unable to save student.",
+
+                "error": str(e)
+
+            })
+
+        }
