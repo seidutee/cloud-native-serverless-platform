@@ -1,4 +1,3 @@
-window.APP_CONFIG = {
-    GET_API: "__GET_API__",
-    POST_API: "__POST_API__"
-};
+window.GET_API = "__GET_API__";
+window.POST_API = "__POST_API__";
+ 

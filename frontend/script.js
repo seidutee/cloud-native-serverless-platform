@@ -1,5 +1,6 @@
-const GET_API = window.APP_CONFIG.GET_API;
-const POST_API = window.APP_CONFIG.POST_API;
+const GET_API = window.GET_API;
+const POST_API = window.POST_API;
+ 
 
 async function loadStudents() {
 

@@ -7,48 +7,36 @@ resource "aws_amplify_app" "awesome_app" {
   enable_branch_auto_build = true
 
   environment_variables = {
-  GET_API  = "${var.api_gateway_url}/dev/students"
-  POST_API = "${var.api_gateway_url}/dev/students"
+  GET_API  = "${var.api_gateway_url}/students"
+  POST_API = "${var.api_gateway_url}/students"
 }
-
   build_spec = <<EOF
 version: 1
-
+ 
 frontend:
-
   phases:
-
     preBuild:
-
       commands:
-        - echo "Generating frontend configuration..."
-
-        - |
-          cat > frontend/config.js <<EOT
-          window.APP_CONFIG = {
-            API_URL: "$API_URL"
-          };
-          EOT
-
+        - sed -i "s|__GET_API__|$GET_API|g" frontend/config.js
+        - sed -i "s|__POST_API__|$POST_API|g" frontend/config.js
+        - echo "Frontend configuration generated."
+ 
     build:
-
       commands:
-        - echo "Static frontend ready"
-
+        - echo "Building static frontend..."
+       
   artifacts:
-
     baseDirectory: frontend
-
     files:
-      - '**/*'
-
+      - "**/*"
+ 
   cache:
-
     paths: []
 EOF
 
   tags = var.tags
 }
+
 
 resource "aws_amplify_branch" "production" {
 
@@ -61,3 +49,8 @@ resource "aws_amplify_branch" "production" {
 
   enable_auto_build = true
 }
+
+
+
+ 
+ 
