@@ -4,12 +4,11 @@ output "api_id" {
 }
 
 output "api_endpoint" {
-  description = "HTTP API endpoint"
+  description = "Base HTTP API endpoint"
   value       = aws_apigatewayv2_api.api.api_endpoint
 }
 
 output "stage_invoke_url" {
   description = "Invoke URL for the dev stage"
-  value       = "${aws_apigatewayv2_api.api.api_endpoint}/dev"
+  value       = "${aws_apigatewayv2_api.api.api_endpoint}/${aws_apigatewayv2_stage.dev.name}"
 }
-

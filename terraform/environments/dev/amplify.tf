@@ -6,7 +6,7 @@ module "amplify" {
   repository_url = var.github_repository_url
   github_token   = var.github_token
 
-  api_gateway_url = module.api_gateway.api_endpoint
+  api_gateway_url = module.api_gateway.stage_invoke_url
 
   tags = {
     Environment = "dev"
