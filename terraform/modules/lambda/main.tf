@@ -12,9 +12,9 @@ resource "aws_lambda_function" "put_item" {
  
   timeout = 10
  
-  filename = data.archive_file.put_item.output_path
+  filename = var.put_lambda_function_name
  
-  source_code_hash = data.archive_file.put_item.output_base64sha256
+  source_code_hash =var.put_lambda_function_name
  
   environment {
  
@@ -42,9 +42,9 @@ resource "aws_lambda_function" "get_item" {
  
   timeout = 10
  
-  filename = data.archive_file.get_item.output_path
+  filename = var.get_lambda_function_name
  
-  source_code_hash = data.archive_file.get_item.output_base64sha256
+  source_code_hash = var.get_lambda_function_name
  
   environment {
  
@@ -55,26 +55,6 @@ resource "aws_lambda_function" "get_item" {
     }
  
   }
- 
-}
- 
-data "archive_file" "put_item" {
- 
-  type = "zip"
- 
-  source_dir = "${path.root}/../../../backend/put_item"   # Used source_dir instead of source_file to include all files in the directory
- 
-  output_path = "${path.root}/../../../backend/put_item/put_item.zip"
- 
-}
- 
-data "archive_file" "get_item" {
- 
-  type = "zip"
- 
-  source_dir = "${path.root}/../../../backend/get_item"
- 
-  output_path = "${path.root}/../../../backend/get_item/get_item.zip"
  
 }
  

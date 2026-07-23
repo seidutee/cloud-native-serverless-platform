@@ -40,3 +40,7 @@ variable "github_token" {
   sensitive = true
 }
 
+variable "lambda_artifacts_bucket_name" {
+  description = "S3 bucket used to store Lambda deployment packages."
+  type        = string
+}

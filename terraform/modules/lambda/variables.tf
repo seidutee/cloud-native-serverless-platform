@@ -13,3 +13,8 @@ variable "get_lambda_function_name" {
 variable "put_lambda_function_name" {
   type = string
 }
+
+variable "lambda_bucket" {
+  description = "S3 bucket containing Lambda deployment packages."
+  type        = string
+}
