@@ -1,4 +1,15 @@
 variable "domain_name" {
-  description = "The domain name for the Route53 hosted zone"
+  description = "Custom domain name"
   type        = string
+}
+
+variable "amplify_app_id" {
+  description = "Amplify App ID"
+  type        = string
+}
+
+variable "tags" {
+  description = "Resource tags"
+  type        = map(string)
+  default     = {}
 }
