@@ -1,4 +1,4 @@
-# 🚀 Awesome App – Cloud-Native Serverless Student Management Platform
+# 🚀 Cloud-Native Serverless Student Management Platform on AWS
 
 <p align="center">
 
